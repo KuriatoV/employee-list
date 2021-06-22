@@ -1,9 +1,6 @@
 import React from 'react'
 import {Employee} from '../../types'
 
-
-
-
 const EmployeeRow: React.FC<Employee> = ({name,age,gender,status}) => {
     return (<tr>
         <td>{name}</td>
@@ -13,4 +10,4 @@ const EmployeeRow: React.FC<Employee> = ({name,age,gender,status}) => {
         </tr>)
 }
 
-export default EmployeeRow
+export default React.memo(EmployeeRow)

@@ -1,11 +1,14 @@
 import React from 'react'
 
+import { Employee } from '../../types'
 import EmployeeRow from '../EmployeeRow'
-import useEmployeeList from './useEmployeeList'
 
 
-const EmployeeList: React.FC = () => {
-    const { employeesList} = useEmployeeList()
+type Props = {
+  employees:Employee[]
+}
+
+const EmployeeList: React.FC<Props> = ({employees}) => {
 
     return  (
     <table>
@@ -19,7 +22,7 @@ const EmployeeList: React.FC = () => {
       </thead>
 
       <tbody>
-        {employeesList.map(employee => (
+        {employees.map(employee => (
             <EmployeeRow key={employee._id} {...employee}/>
         ))}
       </tbody>

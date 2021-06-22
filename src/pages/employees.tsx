@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { App } from 'types';
-import { components } from 'modules/employees'
+import components from 'modules/employees'
 
-const {EmployeeList} =components
+const {Employees} =components
 
 const EmployeesPage: React.FC<App.Page> = () => {
   
-    return <EmployeeList/>
+    return <Employees/>
 }
 
 export default EmployeesPage;

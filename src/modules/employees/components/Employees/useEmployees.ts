@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import API from 'utils/API'
 import { Employee } from '../../types'
@@ -6,35 +6,35 @@ import {EMPLOYEES} from '../../constants'
 
 
 interface Output {
-    employeesList: Employee[];
+    employees: Employee[];
     addEmployee:(employee:Employee)=>void
 }
 
-const useEmployeeList = (): Output => {
-    const [employeesList, setEmployeesList] = useState<Employee[]>([]);
+const useEmployees = (): Output => {
+    const [employees, setEmployees] = useState<Employee[]>([]);
 
     useEffect(() => {
-       API.get<Employee[]>(EMPLOYEES).then(({data})=> setEmployeesList(data)) 
+       API.get<Employee[]>(EMPLOYEES).then(({data})=> setEmployees(data)) 
      },[])
 
 
-    const addEmployee = async (employee: Employee) => {
+    const addEmployee = useCallback( async (employee: Employee) => {
         try {
             
             const {data:newEmployee} = await API.post<Employee[]>(EMPLOYEES, employee)
             
-            setEmployeesList(prev => [...prev, ...newEmployee])
+            setEmployees(prev => [...prev, ...newEmployee])
         } catch (err) {
             console.error(err)
         }
 
-     }
+     },[])
 
     return {
-        employeesList,
+        employees,
         addEmployee,
     };
 };
 
 
-export default useEmployeeList;
+export default useEmployees;

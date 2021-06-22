@@ -5,10 +5,10 @@ import {Employee} from '../../types';
 import API from 'utils/API';
 
 type Props = {
-  onAddNewEmployee: (employee:Employee)=>void
+  addEmployee: (employee:Employee)=>void
 };
 
-const AddEmployee: React.FC<Props> = ({ onAddNewEmployee }) => {
+const AddEmployee: React.FC<Props> = ({ addEmployee }) => {
 
   const onSumbit = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,12 +20,12 @@ const AddEmployee: React.FC<Props> = ({ onAddNewEmployee }) => {
     const data = Object.fromEntries(formData);
 
     API.post<Employee>(EMPLOYEES,data).then(({data:employee}) => {
-      onAddNewEmployee(employee);
-    });
+      addEmployee(employee);
+    }).catch(err=>console.error(err))
   };
 
   return (
-    <form onSubmit={onSumbit}>
+    <form onSubmit={onSumbit} >
       <label>
         <span>name</span>
         <input type="text" name="name"  />
@@ -33,7 +33,7 @@ const AddEmployee: React.FC<Props> = ({ onAddNewEmployee }) => {
       <label>
         <span>age</span>
         <input type="number" name="age"  />
-      </label>
+      </label> 
       <label>
         <span>gender</span>
         <input type="radio" name="gender" value="female" />
